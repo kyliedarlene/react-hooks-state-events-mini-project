@@ -4,13 +4,11 @@ import NewTaskForm from "./NewTaskForm";
 import TaskList from "./TaskList";
 
 import { CATEGORIES, TASKS } from "../data";
-// console.log("Here's the data you're working with");
-// console.log({ CATEGORIES, TASKS });
 
 function App() {
   const [tasksToDisplay, setTasksToDisplay] = useState(TASKS);
   const [selectedCategory, setSelectedCategory] = useState("All");
-
+  
   function removeTask(taskToRemove) {
     setTasksToDisplay((tasksToDisplay) => (
       tasksToDisplay.filter((task) => task.text !== taskToRemove)
@@ -20,9 +18,17 @@ function App() {
   return (
     <div className="App">
       <h2>My tasks</h2>
-      <CategoryFilter categories={CATEGORIES} selectedCategory={selectedCategory} />
+      <CategoryFilter 
+        categories={CATEGORIES} 
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory} 
+      />
       <NewTaskForm categories={CATEGORIES} />
-      <TaskList tasks={tasksToDisplay} selectedCategory={selectedCategory} onRemoveTask={removeTask} />
+      <TaskList 
+        tasks={tasksToDisplay} 
+        selectedCategory={selectedCategory} 
+        onRemoveTask={removeTask} 
+      />
     </div>
   );
 }

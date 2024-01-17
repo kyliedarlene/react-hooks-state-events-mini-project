@@ -1,6 +1,6 @@
 import React from "react";
 
-function Task({ category, text, onRemoveTask }){
+function Task({ category, text, onRemoveTask }) {
   return (
     <div className="task">
       <div className="label">{category}</div>
