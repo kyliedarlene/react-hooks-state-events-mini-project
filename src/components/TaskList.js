@@ -1,7 +1,11 @@
 import React from "react";
 import Task from "./Task";
 
-function TaskList({ tasks }) {
+function TaskList({ 
+  tasks,
+  selectedCategory
+}) 
+{
   return (
     <div className="tasks">
       {tasks.map((task) => (
