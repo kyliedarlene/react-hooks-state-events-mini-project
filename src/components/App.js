@@ -8,11 +8,24 @@ import { CATEGORIES, TASKS } from "../data";
 function App() {
   const [tasksToDisplay, setTasksToDisplay] = useState(TASKS);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [formDetails, setFormDetails] = useState("");
+  const [formCategory, setFormCategory] = useState("Code")
   
   function removeTask(taskToRemove) {
     setTasksToDisplay((tasksToDisplay) => (
       tasksToDisplay.filter((task) => task.text !== taskToRemove)
     ))
+  }
+
+  function onTaskFormSubmit(event) {
+    event.preventDefault();
+    const newTask = {
+      key: formDetails,
+      text: formDetails,
+      category: formCategory,
+    }
+    setTasksToDisplay(() => [...tasksToDisplay, newTask]);
+    setFormDetails("");
   }
 
   return (
@@ -23,7 +36,14 @@ function App() {
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory} 
       />
-      <NewTaskForm categories={CATEGORIES} />
+      <NewTaskForm 
+        categories={CATEGORIES}
+        formDetails={formDetails}
+        setFormDetails={setFormDetails}
+        formCategory={formCategory}
+        setFormCategory={setFormCategory}
+        onTaskFormSubmit={onTaskFormSubmit} 
+      />
       <TaskList 
         tasks={tasksToDisplay} 
         selectedCategory={selectedCategory} 
