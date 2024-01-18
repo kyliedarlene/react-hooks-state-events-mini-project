@@ -8,8 +8,7 @@ import { CATEGORIES, TASKS } from "../data";
 function App() {
   const [tasksToDisplay, setTasksToDisplay] = useState(TASKS);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [formDetails, setFormDetails] = useState("");
-  const [formCategory, setFormCategory] = useState("Code")
+
   
   function removeTask(taskToRemove) {
     setTasksToDisplay((tasksToDisplay) => (
@@ -17,16 +16,14 @@ function App() {
     ))
   }
 
-  function onTaskFormSubmit(event) {
-    event.preventDefault();
-    const newTask = {
-      key: formDetails,
-      text: formDetails,
-      category: formCategory,
-    }
+  function onTaskFormSubmit(newTask) {
     setTasksToDisplay(() => [...tasksToDisplay, newTask]);
-    setFormDetails("");
   }
+
+  const filteredTasks = tasksToDisplay.filter((task) => (
+    (selectedCategory === "All") || (selectedCategory === task.category)
+  ))
+  console.log(filteredTasks);
 
   return (
     <div className="App">
@@ -38,14 +35,10 @@ function App() {
       />
       <NewTaskForm 
         categories={CATEGORIES}
-        formDetails={formDetails}
-        setFormDetails={setFormDetails}
-        formCategory={formCategory}
-        setFormCategory={setFormCategory}
         onTaskFormSubmit={onTaskFormSubmit} 
       />
       <TaskList 
-        tasks={tasksToDisplay} 
+        tasks={filteredTasks} 
         selectedCategory={selectedCategory} 
         onRemoveTask={removeTask} 
       />
